@@ -1,0 +1,197 @@
+@import '~bootstrap/scss/bootstrap.scss'
+
+$pink: #ffc8dd
+$dark_pink: #ff8fab
+$purple: #cdb4db
+$blue: #bde0fe
+$dark_blue: #a2d2ff
+$black: black
+$darker_pink: #fb6f92
+
+
+
+
+@mixin box($color, $i)
+    box-shadow: #{$i}px -3px 3px darken($color, $i*5%)
+
+body
+    background: #ffe5ec
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-items: center
+
+
+.cont
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-content: center
+
+.cards
+    align-content: center
+    justify-content: center
+
+
+.logo
+    max-height: 50px
+    max-width: 50px
+    overflow: hidden
+    margin-bottom: 10px
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+
+
+.button-upload
+    height: 75%
+    padding: 5px 5px
+    background-color: $pink
+    border: $dark_pink  solid 2px
+    border-radius: 5px
+    color: $darker_pink
+
+.button-upload:hover
+    background-color: #FA8094
+    border: #FA8094  solid 2px
+    border-radius: 5px
+    color: #fff
+
+.button-upload:target
+    background-color: #FA8094
+    border: #FA8094  solid 2px
+    border-radius: 5px
+    color: #fff
+
+@for $i from 1 through 3
+    .card:nth-child(3n + #{$i})
+        box-shadow: 2px -3px 3px #FA8094
+
+
+.load
+    padding: 5px
+    animation: spin 2s linear infinite
+
+
+@keyframes spin
+    0%
+        transform: rotate(0deg)
+    50%
+        transform: rotate(180deg)
+    100%
+        transform: rotate(0deg)
+
+img
+    overflow: hidden
+    width: 100%
+    max-height: 150px
+    max-width: 150px
+
+
+.card-my
+    width: 18rem
+    box-shadow: 2px -3px 3px #FA8094
+    display: flex
+    background-color:  #fff
+    padding: 20px
+    margin: 20px
+    background-color: $pink
+    border: $dark_pink solid 2px
+    border-radius: 5px
+
+    position: relative
+
+.card-text
+    width: 100%
+
+
+
+
+.header
+    border: $dark_pink solid 2px
+    border-bottom-right-radius: 5px
+    border-bottom-left-radius: 5px
+    width: 100%
+    display: flex
+    box-shadow: 3px 0px 3px $pink
+    color: $darker_pink
+    max-width: 1000px
+.header-items
+    height: 100%
+    display: flex
+    width: 100%
+    justify-content: end
+
+.header-item-first
+    width: 100%
+    display: flex
+    justify-content: end
+    .item-second
+        width: 100%
+        display: flex
+        justify-items: start
+        .item
+            margin-left: 20px
+    img
+        max-height: 50px
+        max-width: 50px
+        overflow: hidden
+        margin-bottom: 10px
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+
+.button-cont
+    display: flex
+    height: 100%
+    align-items: center
+
+
+
+
+
+
+
+
+
+
+
+
+
+.data
+    position: absolute
+    top: 10px
+    left: 10px
+    font-size: 0.7rem
+    padding: 2px
+    border-radius: 3px
+    background-color: $pink
+    border: $dark_pink solid 2px
+
+.footer
+    border-top: 2px solid $darker_pink
+    width: 100%
+    display: flex
+    justify-items: center
+    align-items: center
+    position: relative
+    .footer-item
+        width: 100%
+        height: 100%
+        .footer-left
+            display: flex
+            justify-content: end
+            .author
+                margin-right: 352px
+                color: $darker_pink
+        .footer-right
+            display: flex
+            justify-content: start
+            align-content: center
+            .icons
+                display: flex
+                vertical-align: middle
+                height: 100%
+                margin-left: 271px
+                .icon-image
+                    padding: 5px
+                    height: 50px
