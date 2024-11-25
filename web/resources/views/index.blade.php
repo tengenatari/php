@@ -2,7 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Webpack App</title>
+    <title>We love cats</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 <div class="cont">
@@ -233,20 +236,8 @@
         </div>
     </div>
 </footer>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 
-<script>
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker
-                .register("service-worker.js")
-                .then((registration) => {
-                    console.log("Service Worker registered: ", registration);
-                })
-                .catch((registrationError) => {
-                    console.error("Service Worker registration failed: ", registrationError);
-                });
-        });
-    }
-</script>
+
 </html>
