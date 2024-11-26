@@ -15,6 +15,7 @@ function modal(event, id = null){
     let l_but = document.getElementById('l')
     let r_but = document.getElementById('r')
     console.log(id)
+
     if(id == null){
         id = this.id
         console.log(id)
@@ -34,9 +35,19 @@ function modal(event, id = null){
             modal_description.innerHTML = data["modal_description"];
             let count = data['count']
             id = parseInt(id)
-            l_but.setAttribute("value", String(( id - 1  + count) % (count) + 1))
-            r_but.setAttribute("value", String(( id + 1) % (count) + 1))
+            let l = (id - 1  + count) % (count + 1)
+            let r = (id + 1) % (count + 1)
+            if(l === 0){
+                l = l + 1;
+            }
+            if(r === 0){
+                r = r + 1;
+            }
+
+            l_but.setAttribute("value", String(l));
+            r_but.setAttribute("value", String(r));
         }
+
     })}
 $(document).ready(function () {
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
@@ -44,20 +55,21 @@ $(document).ready(function () {
 
     $('.button-modal').on('click', modal)
 
-    $(document.getElementById('l')).on('click', function (){
-        let val = this.value
-        document.getElementById('close').click();
-
-        document.getElementById(String(val)).click();
+    $('.button-arrow').on('click', function (){
+        let val = this.value;
+        console.log(val);
+        let MyModal = document.getElementById('Modal')
+        MyModal.hide();
+        modal(null, String(val));
+        let elem = $(document.getElementById("Modal"));
+        elem.on('hidden.bs.modal', function (event){
+            MyModal.show();
+            elem.off();
+        })
 
 
     });
-    $(document.getElementById('r')).on('click', function (){
-        let val = this.value
-        document.getElementById('close').click();
-        modal(null, String(val) )
-        document.getElementById(String(val)).click();
-    });
+
 });
 
 if (toastTrigger) {

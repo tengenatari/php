@@ -31,10 +31,11 @@
 
                     </div>
                     <div class="modal-footer cont">
-                        <button id='l' type="button" class="button-upload"  value="">Left</button>
+                        <button id='l' type="button" class="button-arrow button-upload"  value="">Left</button>
                         <button id='close' type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id='r' type="button" class="button-upload"  value="">Right</button>
+                        <button id='r' type="button" class=" button-arrow button-upload"  value="">Right</button>
                     </div>
+                    <button style="display:None" id="button-modal" class="btn button-upload button-cont" data-bs-toggle="modal" data-bs-target="#Modal">More info</button>
                 </div>
             </div>
         </div>
