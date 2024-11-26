@@ -13,7 +13,8 @@
 
                     </div>
                 </div>
-                <button class="button-modal btn button-upload button-cont" data-bs-toggle="modal" data-bs-target="#Modal" id="{{$card->id}}">More info</button>
+                <div class="cont cards" >
+                    <button class="button-modal btn button-upload button-cont" data-bs-toggle="modal" data-bs-target="#Modal" id="{{$card->id}}">More info</button></div>
             </div>
         @endforeach
     </div>
@@ -30,9 +31,9 @@
 
                     </div>
                     <div class="modal-footer cont">
-                        <button id='l' type="button" class="button-upload" data-bs-toggle="modal" data-bs-target="#Modal">Left</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id='r' type="button" class="button-upload" data-bs-toggle="modal" data-bs-target="#Modal">Right</button>
+                        <button id='l' type="button" class="button-upload"  value="">Left</button>
+                        <button id='close' type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id='r' type="button" class="button-upload"  value="">Right</button>
                     </div>
                 </div>
             </div>

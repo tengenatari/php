@@ -1,6 +1,16 @@
 @extends('index')
 
 @section('body')
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+
+            </ul>
+        </div>
+    @endif
     <form class="was-validated" method="POST" action="/create/card">
         @csrf
 
