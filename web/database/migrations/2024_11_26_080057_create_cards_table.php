@@ -22,6 +22,7 @@ class CreateCardsTable extends Migration
             $table->string('modal_description');
             $table->string('image');
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

@@ -15,8 +15,10 @@ use App\Http\Controllers\MainController;
 
 Route::get('/', [MainController::class, 'index']);
 
-Route::get('/create', [MainController::class, 'form']);
-
-Route::post('/create/card', [MainController::class, 'create_card']);
+Route::post('/create', [MainController::class, 'create']);
 
 Route::get('/show', [MainController::class, 'show']);
+
+Route::post('/update', [MainController::class, 'update']);
+
+Route::post('/delete', [MainController::class, 'delete']);

@@ -12,16 +12,10 @@ class MainController extends Controller
         $card = new Card();
         return view('main', ['cards' => $card->all()]);
     }
-    public function card(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+
+    public function create(Request $request)
     {
-        return view('card');
-    }
-    public function form(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('form');
-    }
-    public function create_card(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
+        error_log($request);
         $valid = $request -> validate([
             'title' => 'required|min:5|max:20',
             'description' => 'required|min:5|max:200',
@@ -29,6 +23,7 @@ class MainController extends Controller
             'modal_title' => 'required|min:5|max:20',
             'modal_description' => 'required|min:5|max:200'
         ]);
+        error_log($request);
         $card = new Card();
         $card->title = $request->input('title');
         $card->description = $request->input('description');
@@ -37,7 +32,7 @@ class MainController extends Controller
         $card->modal_description = $request->input('modal_description');
 
         $card->save();
-        return redirect('/');
+        return view('template' , ['card' => $card]);
     }
     public function show(Request $request)
     {
@@ -46,9 +41,48 @@ class MainController extends Controller
         error_log($card->id);
         return response()->json([
             'ajax_response' => true,
+            'title' => $card->title,
+            'description' => $card->description,
             'modal_title' => $card->modal_title,
             'modal_description' => $card->modal_description,
+            'image' => $card->image,
             'count' => $count,
         ]);
     }
+    public function delete(Request $request){
+        error_log($request);
+        error_log($request->input("id"));
+        $card = Card::find($request->input('id'));
+        error_log($card->id);
+        $card->delete();
+
+        return response()->json([
+            "ajax_response" => true,
+            "success" => true
+        ]);
+    }
+    public function update(Request $request){
+
+        $valid = $request -> validate([
+            'title' => 'required|min:5|max:20',
+            'description' => 'required|min:5|max:200',
+            'image' => 'required|min:5',
+            'modal_title' => 'required|min:5|max:20',
+            'modal_description' => 'required|min:5|max:200'
+        ]);
+
+        $card = Card::find($request->input('id'));
+        $card->title = $request->input('title');
+        $card->description = $request->input('description');
+        $card->image = $request->input('image');
+        $card->modal_title = $request->input('modal_title');
+        $card->modal_description = $request->input('modal_description');
+        $card->save();
+
+        return response()->json([
+            "ajax_response" => true,
+            "success" => true
+        ]);
+    }
+
 }
