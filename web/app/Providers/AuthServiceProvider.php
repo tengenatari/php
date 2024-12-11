@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Card;
+use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('update-card', function (User $user, Card $card) {
+            return ($user->id === $card->user_id or $card->is_admin);
+        });
+        Gate::define('delete-card', function (User $user, Card $card) {
+            return ($user->id === $card->user_id or $user->is_admin);
+        });
+        Gate::define('restore-card', function (User $user, Card $card) {
+            return ($user->id === $card->user_id or $user->is_admin);
+        });
     }
 }

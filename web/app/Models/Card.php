@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Events\UserSaved;
-use App\Events\UserDeleted;
-
+use App\Policies\CardPolicy;
+use Illuminate\Support\Facades\Gate;
 class Card extends Model
 {
     use HasFactory;
@@ -21,8 +20,18 @@ class Card extends Model
         $this->attributes['modal_title'] = strtolower($value);
     }
 
-    protected $dispatchesEvents = [
-        'saved' => UserSaved::class,
-        'deleted' => UserDeleted::class,
-    ];
+    protected static function booted()
+    {
+
+        static::updating(function ($card) {
+            if(!Gate::check('create-card', [$card])){
+                abort(403);
+            }
+        });
+        static::deleting(function ($card) {
+            if(!Gate::check('delete-card', [$card])){
+                abort(403);
+            }
+        });
+    }
 }

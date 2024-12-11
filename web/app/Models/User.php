@@ -38,10 +38,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $dispatchesEvents = [
-        'saved' => UserSaved::class,
-        'deleted' => UserDeleted::class,
-    ];
+    
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -15,7 +15,7 @@
                 </div>
                 <div class="cont cards" >
                     <button class="button-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#Modal" id="{{$card->id}}">about</button>
-                    @if ($card->user_id == \Illuminate\Support\Facades\Auth::id())
+                    @if ( true or $card->user_id == \Illuminate\Support\Facades\Auth::id())
                     <button class="button-update-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#ModalUpdate" value="{{$card->id}}">update</button>
                     <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
                     @endif
