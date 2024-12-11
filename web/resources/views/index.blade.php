@@ -15,8 +15,12 @@
                 <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_fill%2Cf_auto%2Ch_768%2Cw_1024/v1430985624/icxwaqislsihjy4b02yl.jpg" alt="Logo"  class="item d-inline-block align-text-top logo">
                 I love cat's
             </a>
-
+            @auth
             <button class="button-search btn  button-upload" type="button" data-bs-toggle="modal" data-bs-target="#ModalCreate  ">Search</button>
+            @endauth
+            @guest
+                <a class="button-search btn  button-upload" href="/login">Log in</a>
+            @endguest
             <div class="toast-container position-fixed bottom-0 end-0 p-3">
 
             </div>

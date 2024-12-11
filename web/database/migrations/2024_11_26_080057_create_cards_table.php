@@ -23,6 +23,8 @@ class CreateCardsTable extends Migration
             $table->string('image');
             $table->timestamps();
             $table->softDeletes();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
     }

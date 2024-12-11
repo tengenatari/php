@@ -7,7 +7,7 @@ use App\Models\Card;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class MainController extends Controller
@@ -37,7 +37,7 @@ class MainController extends Controller
         $card->modal_description = $request->input('modal_description');
         $path = $request->File('image')->store('public/cat_images');
         $card->image = Storage::url($path);
-
+        $card->user_id = Auth::id();
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read(file_get_contents($request->File('image')));
