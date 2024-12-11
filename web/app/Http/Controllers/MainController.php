@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Im;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
+
+
+
 class MainController extends Controller
 {
 
@@ -33,8 +37,13 @@ class MainController extends Controller
         $card->modal_description = $request->input('modal_description');
         $path = $request->File('image')->store('public/cat_images');
         $card->image = Storage::url($path);
-        // $img = Image::make($path)->resize(300, 300)->encode();
-        // $img->save(Storage::path($path));
+
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read(file_get_contents($request->File('image')));
+        $image->resize(300, 200);
+        $image->save("../storage/app/".$path);
+
         $card->save();
         return view('template' , ['card' => $card]);
     }
