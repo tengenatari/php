@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Im;
 class MainController extends Controller
 {
 
@@ -19,7 +21,7 @@ class MainController extends Controller
         $valid = $request -> validate([
             'title' => 'required|min:5|max:20',
             'description' => 'required|min:5|max:200',
-            'image' => 'required|min:5',
+            'image' => 'required',
             'modal_title' => 'required|min:5|max:20',
             'modal_description' => 'required|min:5|max:200'
         ]);
@@ -27,10 +29,12 @@ class MainController extends Controller
         $card = new Card();
         $card->title = $request->input('title');
         $card->description = $request->input('description');
-        $card->image = $request->input('image');
         $card->modal_title = $request->input('modal_title');
         $card->modal_description = $request->input('modal_description');
-
+        $path = $request->File('image')->store('public/cat_images');
+        $card->image = Storage::url($path);
+        // $img = Image::make($path)->resize(300, 300)->encode();
+        // $img->save(Storage::path($path));
         $card->save();
         return view('template' , ['card' => $card]);
     }
@@ -66,7 +70,7 @@ class MainController extends Controller
         $valid = $request -> validate([
             'title' => 'required|min:5|max:20',
             'description' => 'required|min:5|max:200',
-            'image' => 'required|min:5',
+            'image' => 'required',
             'modal_title' => 'required|min:5|max:20',
             'modal_description' => 'required|min:5|max:200'
         ]);

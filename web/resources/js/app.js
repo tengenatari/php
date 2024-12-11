@@ -146,14 +146,16 @@ $(document).ready(function () {
         }
     )
     $(document.getElementById("CreateCard")).on("click", function CreateCard(){
+        let file = document.getElementById("create_modal_image").files[0]
         let data = $("#formCreate").serializeArray()
-        let new_data = {};
-
+        let new_data = new FormData();
+        console.log(file)
         for (let i = 0; i < data.length; i++) {
             console.log(data[i])
-            new_data[data[i]['name']] = data[i]["value"];
+            new_data.append(data[i]['name'], data[i]["value"])
 
         }
+        new_data.append('image', file)
         console.log(data)
         console.log(data.length)
         $.ajaxSetup({
@@ -164,7 +166,10 @@ $(document).ready(function () {
         $.ajax({
             url: "/create",
             method: 'post',
-            dataType: 'html',
+            dataType: 'json',
+            cache : false,
+            processData: false,
+            contentType: false,
             data: new_data,
             success: function (data) {
 

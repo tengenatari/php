@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <input minlength="5" maxlength="200" name="image" class="form-control" id="create_modal_image" aria-label="file example" required>
+                            <input minlength="5" maxlength="200" name="image" type="file" class="form-control" id="create_modal_image" aria-label="file example" required>
                             <div class="invalid-feedback">Example invalid form file feedback</div>
                         </div>
 
