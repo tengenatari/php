@@ -13,6 +13,9 @@ use App\Http\Controllers\MainController;
 |
 */
 
+
+
+
 Route::get('/', [MainController::class, 'index']);
 
 Route::post('/create', [MainController::class, 'create']);
@@ -22,3 +25,11 @@ Route::get('/show', [MainController::class, 'show']);
 Route::post('/update', [MainController::class, 'update']);
 
 Route::post('/delete', [MainController::class, 'delete']);
+
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

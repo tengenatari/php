@@ -1,3 +1,11 @@
+require('./bootstrap');
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 import {parseInt} from "lodash/string";
 
 console.log("Hello World!");
@@ -113,8 +121,8 @@ $(document).ready(function () {
             }
         })
 
-        })
-        $(document.getElementById("UpdateCard")).on("click", function UpdateCard(){
+    })
+    $(document.getElementById("UpdateCard")).on("click", function UpdateCard(){
             let data = $("#formUpdate").serializeArray()
             let new_data = {};
 
@@ -220,5 +228,4 @@ $(document).on('keydown', '.modal', function(e) {
         document.getElementById('l').click();
     }
 });
-
 
