@@ -4,6 +4,7 @@
 @section('body')
     <div id="cont"  class="row row-cols-auto cards">
         @foreach($cards as $card)
+
             <div id="Card{{ $card->id }}"class="card card-my">
                 <div class="col card-body">
                     <img class="img-fluid"  src="{{ $card->image}}" alt="">
@@ -15,12 +16,21 @@
                 </div>
                 <div class="cont cards" >
                     <button class="button-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#Modal" id="{{$card->id}}">about</button>
-                    @if ($card->user_id == \Illuminate\Support\Facades\Auth::id())
+                    @can('update-card', $card)
                     <button class="button-update-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#ModalUpdate" value="{{$card->id}}">update</button>
-                    <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
-                    @endif
+                    @endcan
+
+                    @can('delete-card', $card)
+                        <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
+                    @endcan
+                    @unless($card->deleted_at)
+                        @can('restore-card')
+                            <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">
+                        @endcan
+                    @endunless
                 </div>
             </div>
+
         @endforeach
     </div>
     <div class="cont cards" >

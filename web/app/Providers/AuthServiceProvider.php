@@ -28,13 +28,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('update-card', function (User $user, Card $card) {
-            return ($user->id === $card->user_id or $card->is_admin);
+            return ($user->id === $card->user_id or $user->is_admin);
         });
         Gate::define('delete-card', function (User $user, Card $card) {
             return ($user->id === $card->user_id or $user->is_admin);
         });
-        Gate::define('restore-card', function (User $user, Card $card) {
-            return ($user->id === $card->user_id or $user->is_admin);
+        Gate::define('restore-card', function (User $user) {
+            return ($user->is_admin);
         });
     }
 }

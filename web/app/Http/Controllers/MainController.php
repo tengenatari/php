@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
@@ -15,8 +16,15 @@ class MainController extends Controller
 
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $card = new Card();
-        return view('main', ['cards' => $card->all()]);
+
+
+        if(Gate::check('restore-card')){
+            $card = Card::withTrashed()->get();
+        }
+        else{
+            $card = Card::all();
+        }
+        return view('main', ['cards' => $card]);
     }
 
     public function create(Request $request)
