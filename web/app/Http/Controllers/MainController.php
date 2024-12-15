@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Card;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -47,10 +45,10 @@ class MainController extends Controller
         $card->image = Storage::url($path);
         $card->user_id = Auth::id();
 
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read(file_get_contents($request->File('image')));
-        $image->resize(300, 200);
-        $image->save("../storage/app/".$path);
+        //$manager = new ImageManager(new Driver());
+        // $image = $manager->read(file_get_contents($request->File('image')));
+        // $image->resize(300, 200);
+        // $image->save("../storage/app/".$path);
 
         $card->save();
         return view('template' , ['card' => $card]);

@@ -5,7 +5,7 @@
     <div id="cont"  class="row row-cols-auto cards">
         @foreach($cards as $card)
 
-            <div id="Card{{ $card->id }}"class="card card-my">
+            <div id="Card{{ $card->id }}" class="card card-my">
                 <div class="col card-body">
                     <img class="img-fluid"  src="{{ $card->image}}" alt="">
                     <div class="card-text">
@@ -23,11 +23,11 @@
                     @can('delete-card', $card)
                         <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
                     @endcan
-                    @unless($card->deleted_at)
+                    @if($card->deleted_at)
                         @can('restore-card')
-                            <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">
+                            <form id="formRestore{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >restore<input name="id" value="{{$card->id}}" type="Hidden"></form>
                         @endcan
-                    @endunless
+                    @endif
                 </div>
             </div>
 

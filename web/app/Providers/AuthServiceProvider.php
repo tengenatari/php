@@ -36,5 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('restore-card', function (User $user) {
             return ($user->is_admin);
         });
+        Gate::define('create-card', function (User $user){
+           return ($user === $user);
+        });
+
     }
 }

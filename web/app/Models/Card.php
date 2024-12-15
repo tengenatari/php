@@ -33,5 +33,10 @@ class Card extends Model
                 abort(403);
             }
         });
+        static::creating(function($card){
+           if(!Gate::check('create-card')){
+               abort(401);
+           }
+        });
     }
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\CardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +27,7 @@ Route::post('/update', [MainController::class, 'update']);
 
 Route::post('/delete', [MainController::class, 'delete']);
 
-Route::get('/card/{user:name}', [PhotoController::class, 'show']);
+Route::get('/card/{user:name}', [CardController::class, 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
