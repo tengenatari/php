@@ -24,7 +24,7 @@
                         <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
 
 
-                    <form id="formRestore{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >restore<input name="id" value="{{$card->id}}" type="Hidden"></form>
+                    <form method="POST" action="/createcomment"><button class="button-delete btn button-upload button-cont m-1"  type="submit"></button>@csrf <input name="id" value="{{$card->id}}" type="Hidden"></form>
 
             </div>
 
