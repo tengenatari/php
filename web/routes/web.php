@@ -29,6 +29,8 @@ Route::post('/delete', [MainController::class, 'delete']);
 
 Route::get('/card/{user:name}', [CardController::class, 'show']);
 
+Route::post('restore', [CardController::class, 'restore']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

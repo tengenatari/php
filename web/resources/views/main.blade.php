@@ -25,7 +25,7 @@
                     @endcan
                     @if($card->deleted_at)
                         @can('restore-card')
-                            <form id="formRestore{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >restore<input name="id" value="{{$card->id}}" type="Hidden"></form>
+                            <form id="formRestore{{$card->id}}"  method="POST" action="/restore"><input name="id" value="{{$card->id}}" type="Hidden"><button class="button-delete btn button-upload button-cont m-1" type="submit">@csrf restore</button></form>
                         @endcan
                     @endif
                 </div>

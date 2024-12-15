@@ -18,4 +18,13 @@ class CardController extends Controller
         }
         return view('main' , ['cards' => $card]);
     }
+    public function restore(Request $request){
+        if (Gate::check('restore-card')) {
+            error_log($request->input('id'));
+            $card = Card::withTrashed()->find((int)$request->input('id'));
+            error_log($card);
+            $card->restore();
+        }
+        return redirect('/');
+    }
 }
