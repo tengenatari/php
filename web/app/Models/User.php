@@ -30,7 +30,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Card::class);
     }
-
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function friends(): HasMany
+    {
+        return $this->hasMany(Friendship::class);
+    }
 
     protected $fillable = [
         'name',
@@ -38,7 +45,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Policies\CardPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +19,10 @@ class Card extends Model
     public function getModalTitle($value)
     {
         $this->attributes['modal_title'] = strtolower($value);
+    }
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     protected static function booted()
