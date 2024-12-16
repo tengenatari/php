@@ -3,17 +3,29 @@
 
 @section('body')
 
-        @foreach($users as $user)
+        @foreach($friends as $user)
             <form class="form-floating">
                 <input id="userfloating{{$user->id}}" value="{{$user->name}}" class="form-control">
                 <input name="id" value="{{$user->id}}" type="hidden">
                 <label for="userfloating{{$user->id}}">registered at {{$user->created_at}}</label>
-                
+
+                    <a class="btn btn-danger" href="/unfriend/{{$user->id}}">delete</a>
+
+
             </form>
 
 
         @endforeach
+        @foreach($others as $user)
+            <form class="form-floating">
+                <input id="userfloating{{$user->id}}" value="{{$user->name}}" class="form-control">
+                <input name="id" value="{{$user->id}}" type="hidden">
+                <label for="userfloating{{$user->id}}">registered at {{$user->created_at}}</label>
 
+            </form>
+
+            <a class="btn btn-primary" href="/unfriend/{{$user->id}}">add friend</a>
+        @endforeach
     <div class="cont cards" >
 
         <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

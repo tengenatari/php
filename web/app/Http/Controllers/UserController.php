@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Friend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +18,25 @@ class UserController extends Controller
     {
         $users = User::all();
         if(Auth::check()){
-            $friends = User::find(Auth::id())->friends()->get();
+            // $friends = User::find(Auth::id())->friends()->select('friend_id')->get();
+            $friends = User::leftjoin('friend', function ($join){
+
+                $join->on('users.id', '=', 'friend.friend_id');
+            })->where('friend.user_id', Auth::id());
+            $others = User::whereNotIn('id', $friends->select('friend_id'));
+            $friends = User::leftjoin('friend', function ($join){
+
+                $join->on('users.id', '=', 'friend.friend_id');
+            })->where('friend.user_id', Auth::id());
+
+        }
+        else{
+            $friends = [];
         }
 
-        $friends = [];
+        // error_log($friends->first());
 
-        return view('users', ['users' => $users, "friends"=>$friends]);
+        return view('users', ['others' => $others->get(), 'friends'=>$friends->get()]);
 
     }
 

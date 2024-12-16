@@ -37,7 +37,7 @@ class User extends Authenticatable
     }
     public function friends(): BelongsToMany
     {
-        return $this->belongsToMany('users', 'friends_users', 'user_id', 'friend_id');
+        return $this->belongsToMany(self::class, "friend", 'user_id', 'friend_id');
     }
 
     protected $fillable = [
