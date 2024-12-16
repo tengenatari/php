@@ -2,34 +2,18 @@
 
 
 @section('body')
-    <div id="cont"  class="row row-cols-auto cards">
-        @foreach($cards as $card)
 
-            <div id="Card{{ $card->id }}" class="card card-my">
-                <div class="col card-body">
-                    <img class="img-fluid"  src="{{ $card->image}}" alt="">
-                    <div class="card-text">
-                        <h2 id="CardTitle{{ $card->id }}">{{$card->title}}</h2>
-                        <p id="CardDesc{{ $card->id }}">{{$card->description}}</p>
+        @foreach($users as $user)
+            <form class="form-floating">
+                <input id="userfloating{{$user->id}}" value="{{$user->name}}" class="form-control">
+                <input name="id" value="{{$user->id}}" type="hidden">
+                <label for="userfloating{{$user->id}}">registered at {{$user->created_at}}</label>
+                
+            </form>
 
-                    </div>
-                </div>
-                <div class="cont cards" >
-                    <button class="button-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#Modal" id="{{$card->id}}">about</button>
-
-                    <button class="button-update-modal btn button-upload button-cont m-1" data-bs-toggle="modal" data-bs-target="#ModalUpdate" value="{{$card->id}}">update</button>
-
-
-
-                        <form id="formDelete{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >delete<input name="id" value="{{$card->id}}" type="Hidden">@csrf </form>
-
-
-                    <form method="POST" action="/createcomment"><button class="button-delete btn button-upload button-cont m-1"  type="submit"></button>@csrf <input name="id" value="{{$card->id}}" type="Hidden"></form>
-
-            </div>
 
         @endforeach
-    </div>
+
     <div class="cont cards" >
 
         <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

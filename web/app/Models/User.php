@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -34,9 +35,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-    public function friends(): HasMany
+    public function friends(): BelongsToMany
     {
-        return $this->hasMany(Friendship::class);
+        return $this->belongsToMany('users', 'friends_users', 'user_id', 'friend_id');
     }
 
     protected $fillable = [

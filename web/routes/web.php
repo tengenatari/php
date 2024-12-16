@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,12 @@ Route::post('/update', [MainController::class, 'update']);
 Route::post('/delete', [MainController::class, 'delete']);
 
 Route::get('/card/{user:name}', [CardController::class, 'show']);
+
+Route::post('/create/comment', [CommentController::class, 'create']);
+
+Route::get('/comment/{card:id}', [CommentController::class, 'index']);
+
+Route::get('/users/', [UserController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

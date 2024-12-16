@@ -22,7 +22,7 @@ class CreateTableComments extends Migration
             $table->string('text');
             $table->integer('card_id')->unsigned();
             $table->foreign('card_id')->references('id')->on('cards');
-
+            $table->softDeletes();
         });
     }
 

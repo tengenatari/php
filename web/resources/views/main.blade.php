@@ -28,7 +28,13 @@
                             <form id="formRestore{{$card->id}}" class="button-delete btn button-upload button-cont m-1" >restore<input name="id" value="{{$card->id}}" type="Hidden"></form>
                         @endcan
                     @endif
+
                 </div>
+
+                @if(Auth::check())
+                    <form method="POST" action="/create/comment"><input name="id" value="{{$card->id}}" type="Hidden"><input class ="form-control m-2" name="text" type="text" ><button class="btn btn-primary" type="submit">@csrf send</button></form>
+                @endif
+                <a class="btn btn-info" href="/comment/{{$card->id}}">Комментарии</a>
             </div>
 
         @endforeach

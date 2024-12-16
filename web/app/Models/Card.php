@@ -20,7 +20,7 @@ class Card extends Model
     {
         $this->attributes['modal_title'] = strtolower($value);
     }
-    public function cards(): HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
