@@ -9,11 +9,11 @@
                 <input name="id" value="{{$user->id}}" type="hidden">
                 <label for="userfloating{{$user->id}}">registered at {{$user->created_at}}</label>
 
-                    <a class="btn btn-danger" href="/unfriend/{{$user->id}}">delete</a>
+
 
 
             </form>
-
+            <form  action="/unfriend/" method="POST">@csrf<input name="id" type="hidden" value="{{$user->id}}"><button class="btn btn-danger" type="submit">unmake friend</button></form>
 
         @endforeach
         @foreach($others as $user)
@@ -24,7 +24,7 @@
 
             </form>
 
-            <a class="btn btn-primary" href="/unfriend/{{$user->id}}">add friend</a>
+            <form  action="/friend/" method="POST">@csrf<input name="id" type="hidden" value="{{$user->id}}"><button class="btn btn-primary" type="submit">make friend</button></form>
         @endforeach
     <div class="cont cards" >
 

@@ -23,31 +23,37 @@ class UserController extends Controller
 
                 $join->on('users.id', '=', 'friend.friend_id');
             })->where('friend.user_id', Auth::id());
-            $others = User::whereNotIn('id', $friends->select('friend_id'));
+            $others = User::whereNotIn('id', $friends->select('friend_id'))->get();
             $friends = User::leftjoin('friend', function ($join){
 
                 $join->on('users.id', '=', 'friend.friend_id');
-            })->where('friend.user_id', Auth::id());
+            })->where('friend.user_id', Auth::id())->get();
 
         }
         else{
             $friends = [];
+            $others = [];
         }
 
         // error_log($friends->first());
 
-        return view('users', ['others' => $others->get(), 'friends'=>$friends->get()]);
+        return view('users', ['others' => $others, 'friends'=>$friends]);
 
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function create_friend(Request $request)
     {
-        //
+        $friend = new Friend();
+
+        $friend->user_id=$request->input(Auth::id());
+        $friend->friend_id=$request->input('id');
+        $friend->save();
+        return redirect('/users');
     }
 
     /**

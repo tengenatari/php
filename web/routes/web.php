@@ -33,9 +33,11 @@ Route::get('/card/{user:name}', [CardController::class, 'show']);
 
 Route::post('/create/comment', [CommentController::class, 'create']);
 
+Route::post('/friend', [UserController::class, 'create_friend']);
+
 Route::get('/comment/{card:id}', [CommentController::class, 'index']);
 
-Route::get('/users/', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
