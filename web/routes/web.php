@@ -41,6 +41,8 @@ Route::get('/users', [UserController::class, 'index']);
 
 Route::post('unfriend', [UserController::class, 'delete_friend']);
 
+Route::get('/news', [CardController::class, 'news']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
