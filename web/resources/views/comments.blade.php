@@ -3,9 +3,11 @@
 @section('body')
 
     @foreach($comments as $comment)
+
         <div class="form-floating">
             <div class="form-control" id="floatingInputValue{{$comment->id}}">{{$comment->text}}</div>
-            <label for="floatingInputValue{{$comment->id}}">{{App\Models\User::find($comment->user_id)->name}} написал {{$comment->created_at}}</label>
+            <label for="floatingInputValue{{$comment->id}}">@if($comment->friend_id)друг@endif
+                {{$comment->name}} написал </label>
         </div>
 
     @endforeach

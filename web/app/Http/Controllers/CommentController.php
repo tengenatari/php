@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Card;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,16 @@ class CommentController extends Controller
 
     public function index(Card  $card)
     {
-        return view('comments', ["card" => $card, "comments" => $card->comments()->get()]);
+
+        $comments = Comment::leftjoin('users', function ($join){
+            $join->on('comments.user_id', '=', 'users.id');
+        })->leftjoin('friends', function ($join){
+            $join->on('comments.user_id', '=', 'friends.friend_id');
+            $join->where('friends.user_id', '=', Auth::id());
+            $join->whereNull('friends.deleted_at');
+        });
+
+        return view('comments', ["card" => $card, "comments" => $comments->get()]);
     }
 
     /**
