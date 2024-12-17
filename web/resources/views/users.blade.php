@@ -13,7 +13,7 @@
 
 
             </form>
-            <form  action="/unfriend/" method="POST">@csrf<input name="id" type="hidden" value="{{$user->id}}"><button class="btn btn-danger" type="submit">unmake friend</button></form>
+            <form  action="/unfriend/" method="POST">@csrf<input name="id" type="hidden" value="{{$user->friend_id}}"><button class="btn btn-danger" type="submit">unmake friend</button></form>
 
         @endforeach
         @foreach($others as $user)

@@ -19,15 +19,15 @@ class UserController extends Controller
         $users = User::all();
         if(Auth::check()){
             // $friends = User::find(Auth::id())->friends()->select('friend_id')->get();
-            $friends = User::leftjoin('friend', function ($join){
+            $friends = User::leftjoin('friends', function ($join){
 
-                $join->on('users.id', '=', 'friend.friend_id');
-            })->where('friend.user_id', Auth::id());
-            $others = User::whereNotIn('id', $friends->select('friend_id'))->get();
-            $friends = User::leftjoin('friend', function ($join){
+                $join->on('users.id', '=', 'friends.friend_id');
+            })->where('friends.user_id', Auth::id())->whereNull('deleted_at');
+            $others = User::whereNotIn('id', $friends->select('friend_id'))->where('users.id', '!=', Auth::id())->get();
+            $friends = User::leftjoin('friends', function ($join){
 
-                $join->on('users.id', '=', 'friend.friend_id');
-            })->where('friend.user_id', Auth::id())->get();
+                $join->on('users.id', '=', 'friends.friend_id');
+            })->where('friends.user_id', Auth::id())->whereNull('deleted_at')->where('users.id', '!=', Auth::id())->get();
 
         }
         else{
@@ -50,9 +50,15 @@ class UserController extends Controller
     {
         $friend = new Friend();
 
-        $friend->user_id=$request->input(Auth::id());
+        $friend->user_id=Auth::id();
         $friend->friend_id=$request->input('id');
         $friend->save();
+
+        $friend = new Friend();
+        $friend->friend_id=Auth::id();
+        $friend->user_id=$request->input('id');
+        $friend->save();
+
         return redirect('/users');
     }
 
@@ -60,11 +66,19 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function delete_friend(Request $request)
     {
-        //
+        $friend = Friend::where('friends.user_id', '=', Auth::id())->Where('friends.friend_id', '=', $request->input('id'))->first();
+        error_log(Auth::id());
+        error_log($request->input('id'));
+        error_log($friend);
+
+        if ($friend) {$friend->delete();}
+        $friend = Friend::where('friend_id','=', Auth::id())->where('user_id','=', $request->input('id'));
+        if ($friend) {$friend->delete();}
+        return redirect('/users');
     }
 
     /**
