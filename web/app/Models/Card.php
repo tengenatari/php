@@ -12,7 +12,7 @@ class Card extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $fillable = ['title', 'description', 'modal_title', 'modal_description', 'image'];
     public function setTitle($value){
         $this->attributes['title'] = strtolower($value);
     }

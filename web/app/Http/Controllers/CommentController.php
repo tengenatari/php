@@ -20,7 +20,7 @@ class CommentController extends Controller
             $join->on('comments.user_id', '=', 'friends.friend_id');
             $join->where('friends.user_id', '=', Auth::id());
             $join->whereNull('friends.deleted_at');
-        });
+        })->where('comments.card_id', $card->id);
 
         return view('comments', ["card" => $card, "comments" => $comments->get()]);
     }

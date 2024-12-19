@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 
 class CardController extends Controller
 {
+
     public function show(User $user){
         if(Gate::check('restore-card')){
             $card = $user->cards()->withTrashed()->get();

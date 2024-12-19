@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,5 +49,12 @@ Route::get('/news', [CardController::class, 'news']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/dashboard/clients', function (Request $request) {
+
+    return view('clients', [
+        'clients' => $request->user()->join("oauth_clients", "oauth_clients.user_id", "users.id",)->where('users.id', Auth::id())->get()
+    ]);
+})->middleware(['auth'])->name('dashboard.clients');
 
 require __DIR__.'/auth.php';
